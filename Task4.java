@@ -31,6 +31,14 @@ public class Task4{
         // for(int i=0; i<n; i++){
         //     System.out.println(pq.poll());
         // }
+        for(int i=0; i<m;i++){
+            if(input[i][0] == 0){
+                pq.add(new House(input[i][0], input[i][1], i));
+            }
+            else{
+                break;
+            }
+        }
         while(currentDay <= n){
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex));

@@ -24,6 +24,14 @@ public class Task2{
         PriorityQueue<House> pq = new PriorityQueue<House>(5, new HouseComparator());
         int currentDay = 1;
         int currentHouseIndex = 0;
+        for(int i=0; i<m;i++){
+            if(input[i][0] == 0){
+                pq.add(new House(input[i][0], input[i][1], i));
+            }
+            else{
+                break;
+            }
+        }
         while(currentDay <= n){
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex));
