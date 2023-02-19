@@ -19,16 +19,10 @@ public class Task1{
     }
 
     public static void performTask(int n, int m, int[][] input) throws IOException{
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        ArrayList<Integer> houseIndexes = new ArrayList<Integer>();
         for(int i=1; i<=n; i++){
             if(input[i-1][0] <= i && i <= input[i-1][1]){
-                houseIndexes.add(i);
+                System.out.print(i+" ");
             }
         }
-        for(int i=0; i<houseIndexes.size(); i++){
-            bw.write(houseIndexes.get(i)+ " ");
-        }
-        bw.flush();
     }
 }

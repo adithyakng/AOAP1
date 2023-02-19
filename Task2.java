@@ -18,26 +18,13 @@ public class Task2{
         performTask(n,m,days);
     }
 
-    public static void performTask(int n, int m, int[][] input) throws IOException{
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        ArrayList<Integer> houseIndexes = new ArrayList<Integer>();
+    public static void performTask(int n, int m, int[][] input){
         PriorityQueue<House> pq = new PriorityQueue<House>(5, new HouseComparator());
         int currentDay = 1;
         int currentHouseIndex = 0;
-        // Add all houses that start on day 0 to the priority queue
-        for(int i=0; i<m;i++){
-            if(input[i][0] == 0){
-                pq.add(new House(input[i][0], input[i][1], i));
-            }
-            else{
-                break;
-            }
-        }
-        // Iterate through each day and add houses that start on the current day to the priority queue
-
         while(currentDay <= n){
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
-                pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex));
+                pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex+1));
                 currentHouseIndex++;
             }
             // Remove all houses that end before the current day from the priority queue
@@ -46,15 +33,10 @@ public class Task2{
             }
             // Add the house with the earliest end day to the list of chosen houses
             if(pq.size() > 0){
-                houseIndexes.add(pq.poll().index);
+                System.out.print(pq.poll().index+" ");
             }
             currentDay++;
         }
-        // Write the indices of the chosen houses to the output
-        for(int i=0; i<houseIndexes.size(); i++){
-            bw.write(houseIndexes.get(i)+ " ");
-        }
-        bw.flush();
     }
 }
 
