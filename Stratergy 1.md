@@ -18,10 +18,11 @@ Algorithm:
     n,m <- Max days, Number of houses
     input[][] <- n 2-dimensional arrays storing startDay and endDay of each home
     ans <- []
-
+    currentHouseIndex <- 0
     FOR i=0 to n-1
-        IF input[i][0] <= day and day <= input[i][1]
+        IF i<m AND input[i][0] <= day and day <= input[i][1]
             Add(ans,i);
+            curentHouseIndex++
 
     PRINT_LIST(ans);
 return count;
