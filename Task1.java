@@ -19,9 +19,11 @@ public class Task1{
     }
 
     public static void performTask(int n, int m, int[][] input) throws IOException{
+        int currentHouseIndex = 0;
         for(int i=1; i<=n; i++){
-            if(input[i-1][0] <= i && i <= input[i-1][1]){
-                System.out.print(i+" ");
+            if(i<=m && input[currentHouseIndex][0] <= i && input[currentHouseIndex][1] >= i){
+                System.out.print((currentHouseIndex+1)+" ");
+                currentHouseIndex++;
             }
         }
     }

@@ -30,7 +30,7 @@ public class Task3{
         // }
         while(currentDay <= n){
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
-                pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex));
+                pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex+1));
                 currentHouseIndex++;
             }
             while(pq.size() > 0 && pq.peek().endDay < currentDay){
