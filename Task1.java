@@ -18,11 +18,29 @@ public class Task1{
         performTask(n,m,days);
     }
 
-    public static void performTask(int n, int m, int[][] input) throws IOException{
+    public static void performTask(int n, int m, int[][] input){
+        int currentDay = 1;
+        for(int i=0; i<n; i++){
+            if(i<m && input[i][0] <= currentDay && input[i][1] >= currentDay){
+                System.out.print((i+1)+" ");
+                currentDay++;
+            }
+        }
+    }
+
+    public static void performTask1(int n, int m, int[][] input){
+        int currentDay = 1;
         int currentHouseIndex = 0;
-        for(int i=1; i<=n; i++){
-            if(i<=m && input[currentHouseIndex][0] <= i && input[currentHouseIndex][1] >= i){
-                System.out.print((currentHouseIndex+1)+" ");
+        while(currentDay <=n && currentHouseIndex<m){
+            if(input[currentHouseIndex][0] <= currentDay && input[currentHouseIndex][1] >= currentDay){
+                currentHouseIndex++;
+                currentDay++;
+                System.out.print(currentHouseIndex+" ");
+            }
+            else if(input[currentHouseIndex][0] > currentDay){
+                currentDay = input[currentHouseIndex][0];
+            }
+            else{
                 currentHouseIndex++;
             }
         }

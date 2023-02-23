@@ -7,7 +7,7 @@ public class CompareTasks {
     
     public static void main(String args[]) throws IOException{
 
-        int[] inputSizes = {1000,10000,25000,50000,100000};
+        int[] inputSizes = {1000,10000,25000,50000,100000-1};
         String fileName;
         BufferedReader br;
         String input[];
