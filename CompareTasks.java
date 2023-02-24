@@ -167,10 +167,10 @@ class HouseComparatorTask2 implements Comparator<House>{
         }
         else if(h1.startDay == h2.startDay){
             if(h1.endDay > h2.endDay){
-                return -1;
+                return 1;
             }
             else if(h1.endDay < h2.endDay){
-                return 1;
+                return -1;
             }
             else{
                 return h1.index < h2.index ? 1 : -1;
