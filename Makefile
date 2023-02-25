@@ -1,16 +1,16 @@
 default:
 	python3 generateInput.py
-run1:
 	javac Task1.java
+	javac Task2.java
+	javac Task3.java
+	javac Task4.java
+run1:
 	java Task1
 run2:
-	javac Task2.java
 	java Task2
 run3:
-	javac Task3.java
 	java Task3
 run4:
-	javac Task4.java
 	java Task4
 experiment:
 	javac CompareTasks.java

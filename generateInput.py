@@ -2,7 +2,7 @@
 import random
 
 
-n = [1000,10000,25000,50000,100000-1]
+n = [1000,10000,25000,50000,100000]
 for i in range(len(n)):
     inputList = []
     m = random.randint(1,100000-1)
