@@ -20,16 +20,6 @@ public class Task1{
 
     public static void performTask(int n, int m, int[][] input){
         int currentDay = 1;
-        for(int i=0; i<n; i++){
-            if(i<m && input[i][0] <= currentDay && input[i][1] >= currentDay){
-                System.out.print((i+1)+" ");
-                currentDay++;
-            }
-        }
-    }
-
-    public static void performTask1(int n, int m, int[][] input){
-        int currentDay = 1;
         int currentHouseIndex = 0;
         while(currentDay <=n && currentHouseIndex<m){
             if(input[currentHouseIndex][0] <= currentDay && input[currentHouseIndex][1] >= currentDay){

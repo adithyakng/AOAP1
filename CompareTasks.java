@@ -41,14 +41,24 @@ public class CompareTasks {
         System.out.println("TASK 1");
         System.out.println();
         final Instant startTime = Instant.now();
+        int currentDay = 1;
         int currentHouseIndex = 0;
-        for(int i=1; i<=n; i++){
-            if(i<=m &&  input[currentHouseIndex][0] <= i && input[currentHouseIndex][1] >= i){
+        int count = 0;
+        while(currentDay <=n && currentHouseIndex<m){
+            if(input[currentHouseIndex][0] <= currentDay && input[currentHouseIndex][1] >= currentDay){
+                currentHouseIndex++;
+                currentDay++;
+                count++;
+            }
+            else if(input[currentHouseIndex][0] > currentDay){
+                currentDay = input[currentHouseIndex][0];
+            }
+            else{
                 currentHouseIndex++;
             }
         }
         final Instant endTime = Instant.now();
-        System.out.println("Total Number of houses painted: "+currentHouseIndex);
+        System.out.println("Total Number of houses painted: "+count);
         System.out.println("Total Time taken in nano seconds: "+(Duration.between(startTime,endTime).toNanos()));
         System.out.println("--------------------");
     }
