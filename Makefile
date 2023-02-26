@@ -4,6 +4,7 @@ default:
 	javac Task2.java
 	javac Task3.java
 	javac Task4.java
+	javac Task5.java
 run1:
 	java Task1
 run2:
@@ -12,6 +13,8 @@ run3:
 	java Task3
 run4:
 	java Task4
+run5:
+	java Task5
 experiment:
 	javac CompareTasks.java
 	java CompareTasks

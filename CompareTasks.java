@@ -14,7 +14,7 @@ public class CompareTasks {
         int n,m;
         int days[][];
         for(int index = 0; index<inputSizes.length; index++){
-            fileName = "input_"+inputSizes[index]+".txt";
+            fileName = "input_"+inputSizes[index]+"_main.txt";
             br = new BufferedReader(new FileReader(fileName));
             input = br.readLine().trim().split(" ");
             n = Integer.parseInt(input[0]);
@@ -33,6 +33,7 @@ public class CompareTasks {
             performTask2(n,m,days);
             performTask3(n,m,days);
             performTask4(n,m,days);
+            performTask5(n,m,days);
 
         }
     }
@@ -144,6 +145,49 @@ public class CompareTasks {
                 count++;
             }
             currentDay++;
+        }
+        final Instant endTime = Instant.now();
+        System.out.println("Total Number of houses painted: "+count);
+        System.out.println("Total Time taken in nano seconds: "+(Duration.between(startTime,endTime).toNanos()));
+        System.out.println("--------------------");
+    }
+
+    public static void performTask5(int n, int m, int[][] input){
+        System.out.println("TASK 5");
+        System.out.println();
+        final Instant startTime = Instant.now();
+        PriorityQueue<House> pq = new PriorityQueue<House>(5, new HouseComparatorTask4());
+        int currentDay = 1;
+        int currentHouseIndex = 0;
+        int count = 0;
+        while(currentHouseIndex <m){
+            if(input[currentHouseIndex][0] > n){
+                break;
+            }
+            while(currentDay < input[currentHouseIndex][0]){
+                if(pq.size() == 0){
+                    currentDay = input[currentHouseIndex][0];
+                }
+                else{
+                    House topHouse = pq.poll();
+                    if(topHouse.endDay >= currentDay){
+                        count++;
+                        currentDay++;
+                    }
+                }
+            }
+            if(input[currentHouseIndex][0] <= currentDay){
+                pq.add(new House(input[currentHouseIndex][0], input[currentHouseIndex][1], currentHouseIndex+1));
+            }
+            currentHouseIndex++;
+        }
+
+        while(currentDay <=n && pq.size() > 0){
+            House topHouse = pq.poll();
+            if(topHouse.endDay >= currentDay){
+                currentDay++;
+                count++;
+            }
         }
         final Instant endTime = Instant.now();
         System.out.println("Total Number of houses painted: "+count);
