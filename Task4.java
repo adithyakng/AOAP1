@@ -19,16 +19,9 @@ public class Task4{
     }
 
     public static void performTask(int n, int m, int[][] input){
-        PriorityQueue<House> pq = new PriorityQueue<House>(5, new HouseComparator());
+        PriorityQueue<House> pq = new PriorityQueue<House>(5, new HouseComparatorTask4());
         int currentDay = 1;
         int currentHouseIndex = 0;
-
-        // for(int i=0; i<n; i++){
-        //     pq.add(new House(input[i][0], input[i][1], i));
-        // }
-        // for(int i=0; i<n; i++){
-        //     System.out.println(pq.poll());
-        // }
         while(currentDay <= n){
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex+1));
@@ -62,7 +55,7 @@ class House{
     }
 }
 
-class HouseComparator implements Comparator<House>{
+class HouseComparatorTask4 implements Comparator<House>{
 
     public int compare(House h1, House h2){
         if(h1.endDay > h2.endDay){
