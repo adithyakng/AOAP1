@@ -7,6 +7,7 @@ public class CompareTasks {
     
     public static void main(String args[]) throws IOException{
 
+        // Read files of different sizes
         int[] inputSizes = {1000,10000,25000,50000,100000};
         String fileName;
         BufferedReader br;
@@ -14,7 +15,7 @@ public class CompareTasks {
         int n,m;
         int days[][];
         for(int index = 0; index<inputSizes.length; index++){
-            fileName = "input_"+inputSizes[index]+"_main.txt";
+            fileName = "input_"+inputSizes[index]+".txt";
             br = new BufferedReader(new FileReader(fileName));
             input = br.readLine().trim().split(" ");
             n = Integer.parseInt(input[0]);
@@ -29,6 +30,7 @@ public class CompareTasks {
             System.out.println("n value: " +n);
             System.out.println("m value: " +m);
             System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+            // Perform each task
             performTask1(n,m,days);
             performTask2(n,m,days);
             performTask3(n,m,days);
@@ -46,14 +48,17 @@ public class CompareTasks {
         int currentHouseIndex = 0;
         int count = 0;
         while(currentDay <=n && currentHouseIndex<m){
+            // Check whether currentHouseIndex can be painted on currentDay
             if(input[currentHouseIndex][0] <= currentDay && input[currentHouseIndex][1] >= currentDay){
                 currentHouseIndex++;
                 currentDay++;
                 count++;
             }
+            // If startDay of currentHouseIndex is in the future, then initialize it to currentDay
             else if(input[currentHouseIndex][0] > currentDay){
                 currentDay = input[currentHouseIndex][0];
             }
+            // In any other case we can't paint the house, so increment currentHouseIndex
             else{
                 currentHouseIndex++;
             }
@@ -73,6 +78,8 @@ public class CompareTasks {
         int currentDay = 1;
         int currentHouseIndex = 0;
         while(currentDay <= n){
+
+            // Push all houses available to be painted on currentDay into the priority queue.
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex+1));
                 currentHouseIndex++;
@@ -81,7 +88,7 @@ public class CompareTasks {
             while(pq.size() > 0 && pq.peek().endDay < currentDay){
                 pq.poll();
             }
-            // Add the house with the earliest end day to the list of chosen houses
+            // select the house on the top of the prioirty queue to paint
             if(pq.size() > 0){
                 pq.poll();
                 count++;
@@ -104,13 +111,16 @@ public class CompareTasks {
         int currentDay = 1;
         int currentHouseIndex = 0;
         while(currentDay <= n){
+            // Push all houses available to be painted on currentDay into the priority queue.
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex+1));
                 currentHouseIndex++;
             }
+            // Remove all houses that end before the current day from the priority queue as they can't be painted
             while(pq.size() > 0 && pq.peek().endDay < currentDay){
                 pq.poll();
             }
+             // select the house on the top of the prioirty queue to paint
             if(pq.size() > 0){
                 pq.poll(); 
                 count++;
@@ -133,13 +143,16 @@ public class CompareTasks {
         int currentDay = 1;
         int currentHouseIndex = 0;
         while(currentDay <= n){
+            // Push all houses available to be painted on currentDay into the priority queue.
             while(currentHouseIndex < m && input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0],input[currentHouseIndex][1], currentHouseIndex+1));
                 currentHouseIndex++;
             }
+            // Remove all houses that end before the current day from the priority queue as they can't be painted
             while(pq.size() > 0 && pq.peek().endDay < currentDay){
                 pq.poll();
             }
+            // select the house on the top of the prioirty queue to paint
             if(pq.size() > 0){
                 pq.poll();
                 count++;
@@ -161,13 +174,17 @@ public class CompareTasks {
         int currentHouseIndex = 0;
         int count = 0;
         while(currentHouseIndex <m){
+            // If startDate is greater than n, then ignore all future houses
             if(input[currentHouseIndex][0] > n){
                 break;
             }
+            // Process all the houses present in the priority queue till currentDay equal to current house startDay
             while(currentDay < input[currentHouseIndex][0]){
+                 // If the priority queue size is zero, then the currentDay will be equal to the startDate of the current house.
                 if(pq.size() == 0){
                     currentDay = input[currentHouseIndex][0];
                 }
+                 // select the house on the top of the prioirty queue to paint
                 else{
                     House topHouse = pq.poll();
                     if(topHouse.endDay >= currentDay){
@@ -176,12 +193,14 @@ public class CompareTasks {
                     }
                 }
             }
+             // Push the house available to be painted on currentDay into the priority queue.
             if(input[currentHouseIndex][0] <= currentDay){
                 pq.add(new House(input[currentHouseIndex][0], input[currentHouseIndex][1], currentHouseIndex+1));
             }
             currentHouseIndex++;
         }
 
+        // If any houses are remaining in the priority queue, poll them and paint if possible
         while(currentDay <=n && pq.size() > 0){
             House topHouse = pq.poll();
             if(topHouse.endDay >= currentDay){
@@ -197,6 +216,7 @@ public class CompareTasks {
 }
 
 class House{
+    // Define a house Class to store these houses in the priority queue.
     int startDay;
     int endDay;
     int index;
@@ -217,20 +237,25 @@ class HouseComparatorTask2 implements Comparator<House>{
 
     public int compare(House h1, House h2){
         if(h1.startDay < h2.startDay){
+            // Give more priority to h2
             return 1;
         }
         else if(h1.startDay == h2.startDay){
             if(h1.endDay > h2.endDay){
+                 // Give more priority to h2
                 return 1;
             }
             else if(h1.endDay < h2.endDay){
+                // Give more priority to h1
                 return -1;
             }
             else{
+                // Else give priority to higher index (doesn't matter much)
                 return h1.index < h2.index ? 1 : -1;
             }
         }
         else{
+            // Give more priority to h1
             return -1;
         }
     }
@@ -244,17 +269,21 @@ class HouseComparatorTask3 implements Comparator<House>{
         int h1Diff = h1.endDay - h1.startDay;
         int h2Diff = h2.endDay - h2.startDay;
         if(h1Diff > h2Diff){
+            // Give more priority to h2
             return 1;
         }
         else if(h1Diff == h2Diff){
             if(h1.endDay > h2.endDay){
+                // Give more priority to h2
                 return 1;
             }
             else if(h1.endDay < h2.endDay){
+                // Give more priority to h1
                 return -1;
             }
             else{
-                return h1.index < h2.index ? -1 : 1;
+                // Else give priority to higher index
+                return h1.index < h2.index ? 1 : -1;
             }
         }
         else{
@@ -267,20 +296,25 @@ class HouseComparatorTask4 implements Comparator<House>{
 
     public int compare(House h1, House h2){
         if(h1.endDay > h2.endDay){
+             // Give more priority to h2
             return 1;
         }
         else if(h1.endDay == h2.endDay){
             if(h1.startDay < h2.startDay){
+                 // Give more priority to h1
                 return -1;
             }
-            else if(h1.startDay > h2.endDay){
+            else if(h1.startDay > h2.startDay){
+                 // Give more priority to h2
                 return 1;
             }
             else{
-                return h1.index < h2.index ? -1 : 1;
+                // Else give priority to higher index
+                return h1.index < h2.index ? 1 : -1;
             }
         }
         else{
+             // Give more priority to h1
             return -1;
         }
     }
